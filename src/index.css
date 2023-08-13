@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.notification {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    position: absolute;
+    border-radius: 50%;
+    right: -8px;
+    top: -8px;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+}
