@@ -9,6 +9,7 @@ const StoreProvider = ({children}) =>{
     const [category,setCategory] = useState('jewelery')
     const [products, setProducts] = useState([])
     const [product, setProduct] = useState({})
+    const [car,setCar] = useState([])
 
     useEffect(()=>{
         const getProducts = async ()=>{
@@ -20,8 +21,10 @@ const StoreProvider = ({children}) =>{
 
     useEffect(()=>{
         const getProductsByCategory = async ()=>{
-            const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/category/${category}`)
-            setProducts(data)
+            // const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/category/${category}`)
+            const {data} = await axios.get(`https://api.escuelajs.co/api/v1/products`)
+            const newData = data.filter(categoryProduct => categoryProduct.category.name === category)
+            setProducts(newData)
         }
         getProductsByCategory()
         
@@ -36,6 +39,10 @@ const StoreProvider = ({children}) =>{
         setProduct(product)
     }
 
+    const handleSetCar = (product)=>{
+        setCar(product)
+    }
+
     return(
         <StoreContext.Provider
             value={{
@@ -43,7 +50,9 @@ const StoreProvider = ({children}) =>{
                 handleSetCategory,
                 products,
                 handleSetProduct,
-                product
+                product,
+                handleSetCar,
+                car
                 
             }}
         >

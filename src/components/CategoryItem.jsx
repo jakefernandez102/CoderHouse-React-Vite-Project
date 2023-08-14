@@ -6,13 +6,16 @@ import CollapseCategoryButton from "./CollapseCategoryButton";
 import useStore from '../hooks/useStore';
 
 const CategoryItem = ({category}) => {
+    
     const [isCollapsed,setIsCollapsed] = useState(true);
     const {handleSetCategory} = useStore();
+    
     const handleClick = (e)=>{
         e.stopPropagation();
         console.log(category);
         handleSetCategory(category.name)
     }
+
     return (
         <>
             <div
@@ -20,16 +23,17 @@ const CategoryItem = ({category}) => {
                 onClick={handleClick}
                 >
                 <img 
-                    src={category.name === 'electronics' 
-                    ? `/img/electronics.avif` 
-                    : category.name === 'jewelery' 
-                    ? '/img/jewerly.avif' 
-                    : category.name === "men's clothing" 
-                            ? '/img/mens-clothing.avif' 
-                            : category.name === 'clothing' 
-                            ? '/img/clothing.avif'
-                            : category.name === "women's clothing" 
-                            ? '/img/womens-clothing.avif': ''}
+                    // src={category.name === 'electronics' 
+                    // ? `/img/electronics.avif` 
+                    // : category.name === 'jewelery' 
+                    // ? '/img/jewerly.avif' 
+                    // : category.name === "men's clothing" 
+                    //         ? '/img/mens-clothing.avif' 
+                    //         : category.name === 'clothing' 
+                    //         ? '/img/clothing.avif'
+                    //         : category.name === "women's clothing" 
+                    //         ? '/img/womens-clothing.avif': ''}
+                    src={category.image}
                             width={100}
                             height={100}
                             className='rounded-lg'
