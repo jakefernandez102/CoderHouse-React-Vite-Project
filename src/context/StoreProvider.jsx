@@ -134,7 +134,7 @@ const StoreProvider = ({children}) =>{
             }
             return item
         })
-        updatedCar[0] === undefined ? setCar([]) : setCar([...updatedCar])
+        updatedCar[0] === undefined ? setCar(carState=>[...carState]) : setCar([...updatedCar])
     }
 
     const deleteItemFromCar = (item) => {
