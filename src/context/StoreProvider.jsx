@@ -128,13 +128,9 @@ const StoreProvider = ({children}) =>{
             if(item.id === product.id){
                 item.quantity = selectedProduct[0].quantity -1
             }
-            if(item.quantity === 0){
-                
-                return deleteItemFromCar(item)
-            }
             return item
         })
-        updatedCar[0] === undefined ? setCar(carState=>[...carState]) : setCar([...updatedCar])
+        setCar([...updatedCar])
     }
 
     const deleteItemFromCar = (item) => {
