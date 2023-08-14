@@ -12,6 +12,7 @@ const Categories = ({categories}) => {
                 <CategoryItem key={category.name} category={category} />
             ))}
         </ul>
+
     )
 }
 

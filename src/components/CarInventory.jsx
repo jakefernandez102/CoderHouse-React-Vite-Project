@@ -1,32 +1,58 @@
 /* eslint-disable react/prop-types */
 import { formatMoney } from '../helpers/formatMoney';
+import useStore from '../hooks/useStore';
 
 
 
 const CarInventory = ({car}) => {
 
+  const {increaseDecreaseProductQuantityInCar,deleteItemFromCar}=useStore()
+
+  const handleDecreaseQuantity = (product)=>{
+  increaseDecreaseProductQuantityInCar(product,'decrease')
+}
+
+const handleIncreaseQuantity = (product)=>{
+    increaseDecreaseProductQuantityInCar(product,'increase')
+  }
+  
+
   return (
-    
-    <div 
-    className='absolute right-3 top-16 bg-slate-200 p-5 shadow-lg '>
-          {car.map(item => (
-        
-        <div
-          key={item.id}
-          className='w-full flex gap-5 justify-between items-center border border-b-black p-10'>
-            <img className='rounded-lg' src={item.images[0]} alt={`${item.title} image`} width={60} />
-            <p>{item.title}</p>
-            <p>{formatMoney(item.price)}</p>
-            <div className='flex gap-2'>
-                <p>-</p>
-                <p>1</p>
-                <p>+</p>
-            </div>
-            <button className='rounded-lg bg-red-600 text-white font-bold uppercase px-2 py-3 hover:bg-red-700'>Delete</button>
-            <button className='rounded-lg bg-green-600 text-white font-bold uppercase px-2 py-3 hover:bg-green-700'>buy</button>
-        </div>
-        ))}
-    </div>
+    <>
+    {
+      car?.length !== 0 
+      ?
+      (<div 
+      className='absolute right-3 top-16 bg-slate-100 p-5 shadow-lg z-50'>
+            <h2 className='underline uppercase font-black '>Car List preview</h2>
+            {car?.map(item => (
+              <div
+              key={item?.id}
+              className='w-full flex gap-5 justify-between items-center border border-b-black p-10'>
+              <img className='rounded-lg' src={item?.image} alt={`${item?.title} image`} width={60} />
+              <p>{item?.title}</p>
+              <p>{formatMoney(item?.price)}</p>
+              <div className='flex gap-2'>
+                  <button type='button' className='bg-white rounded-lg shadow px-3' onClick={()=>handleDecreaseQuantity(item)}>-</button>
+                  <p>{item?.quantity}</p>
+                  <button type='button' className='bg-white rounded-lg shadow px-3' onClick={()=>handleIncreaseQuantity(item)}>+</button>
+              </div>
+              <button className='rounded-lg bg-red-600 text-white font-bold uppercase px-2 py-3 hover:bg-red-700' onClick={()=>deleteItemFromCar(item)}>Delete</button>
+              <button className='rounded-lg bg-green-600 text-white font-bold uppercase px-2 py-3 hover:bg-green-700'>buy</button>
+          </div>
+          
+          
+          ))}
+      </div>)
+      :
+      (
+        <div 
+      className='absolute right-3 top-16 bg-slate-100 p-5 shadow-lg '>
+          <p>There are no Items in the car</p>
+      </div>
+      )
+    }
+    </>
   )
 }
 

@@ -15,7 +15,7 @@ const CategoryItem = ({category}) => {
         console.log(category);
         handleSetCategory(category.name)
     }
-
+    
     return (
         <>
             <div
@@ -23,17 +23,17 @@ const CategoryItem = ({category}) => {
                 onClick={handleClick}
                 >
                 <img 
-                    // src={category.name === 'electronics' 
-                    // ? `/img/electronics.avif` 
-                    // : category.name === 'jewelery' 
-                    // ? '/img/jewerly.avif' 
-                    // : category.name === "men's clothing" 
-                    //         ? '/img/mens-clothing.avif' 
-                    //         : category.name === 'clothing' 
-                    //         ? '/img/clothing.avif'
-                    //         : category.name === "women's clothing" 
-                    //         ? '/img/womens-clothing.avif': ''}
-                    src={category.image}
+                    src={category.name === 'electronics' 
+                    ? `/img/electronics.avif` 
+                    : category.name === 'jewelery' 
+                    ? '/img/jewerly.avif' 
+                    : category.name === "men's clothing" 
+                            ? '/img/mens-clothing.avif' 
+                            : category.name === 'clothing' 
+                            ? '/img/clothing.avif'
+                            : category.name === "women's clothing" 
+                            ? '/img/womens-clothing.avif': ''}
+                    // src={category.image}
                             width={100}
                             height={100}
                             className='rounded-lg'
@@ -42,7 +42,7 @@ const CategoryItem = ({category}) => {
                 <li className='uppercase font-bold'>
                     <span>{category.name === 'clothing' ?  <CollapseCategoryButton isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> : category.name}</span>
                     {category?.clothing && !isCollapsed && (
-                        <Categories categories={category?.clothing}/>
+                        <Categories key={category.name} categories={category?.clothing}/>
 
                     )}
                 </li>
