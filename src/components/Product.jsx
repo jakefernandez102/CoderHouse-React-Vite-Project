@@ -23,7 +23,7 @@ const Product = ({product}) => {
             <h2 className='boder border-b uppercase font-bold my-5'>{product.title}</h2>
         </div>
         <div className='text-ellipsis overflow-hidden ...'>
-            <p className='text-gray-500 text-sm'>{product.description}</p>
+            <p className='product-description text-gray-500 text-sm'>{product.description}</p>
         </div>
         <div>
             <img className='block mx-auto' src={product.image} alt={`${title} image`} height={150} width={150} />

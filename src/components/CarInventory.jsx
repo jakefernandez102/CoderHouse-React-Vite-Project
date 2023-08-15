@@ -30,7 +30,7 @@ const handleIncreaseQuantity = (product)=>{
               key={item?.id}
               className='w-full flex gap-5 justify-between items-center border border-b-black p-10'>
               <img className='rounded-lg' src={item?.image} alt={`${item?.title} image`} width={60} />
-              <p>{item?.title}</p>
+              <p className='title-item w-1/3'>{item?.title}</p>
               <p>{formatMoney(item?.price)}</p>
               <div className='flex gap-2'>
                   <button type='button' className={item.quantity===1?'bg-gray-400 rounded-lg shadow px-3':'bg-white rounded-lg shadow px-3'} onClick={()=>handleDecreaseQuantity(item)} disabled={item.quantity === 1 ? 'true' :''}>-</button>

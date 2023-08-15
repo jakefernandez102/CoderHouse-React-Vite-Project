@@ -1,17 +1,25 @@
 import { useState } from "react";
 import CarInventory from "./CarInventory";
 import useStore from '../hooks/useStore';
+import { Button } from 'antd';
+import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
 
 
 
 const CarWidget = () => {
     const [isActive, setIsActive] = useState(false)
+    
+    const {car,setOpenSignInModal} = useStore()
 
-    const {car} = useStore()
+
 
   return (
     <>
-        <div className='w-full bg-black h-14 flex justify-end p-5 '>
+        <div className='w-full bg-black h-14 flex justify-end p-5 gap-5 '>
+      <Button  type="primary" onClick={() => setOpenSignInModal(true)} >
+        Sign In
+      </Button>
             <a 
                 href="#"
                 onClick={()=> setIsActive(!isActive)}
@@ -26,15 +34,19 @@ const CarWidget = () => {
         </div>
         {
             isActive &&
-                    <div>
-                        <CarInventory
-                            car={car}
-                        />
-                    </div>
+              <div>
+                  <CarInventory
+                      car={car}
+                  />
+              </div>
 
   
             
         }
+
+        <SignInModal/>
+        <SignUpModal/>
+        
     </>
   )
 }

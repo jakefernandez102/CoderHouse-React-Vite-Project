@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import SignInModal from "../components/SignInModal";
 
 const StoreContext = createContext()
 
@@ -11,6 +12,10 @@ const StoreProvider = ({children}) =>{
     const [products, setProducts] = useState([])
     const [product, setProduct] = useState({})
     const [car,setCar] = useState([])
+
+    const [loading, setLoading] = useState(false);
+    const [openSignInModal, setOpenSignInModal] = useState(false);
+    const [opeSignUpModal, setOpenSignUpModal] = useState(false);
 
     useEffect(()=>{
         const getProducts = async ()=>{
@@ -28,9 +33,10 @@ const StoreProvider = ({children}) =>{
         }
         if(category === ''){
             return
-        } else {
-            getProductsByCategory()
+        } else if(category === 'clothing'){
+            setCategory("men's clothing")
         }
+        getProductsByCategory()
             
         
 
@@ -53,7 +59,7 @@ const StoreProvider = ({children}) =>{
         getCategories();
 
     },[])
-    
+
     const buildSubcategorie = (categories) =>{
         let subcategorie=[];
         const subcategoriesBuilt = categories.map(category => {
@@ -70,6 +76,54 @@ const StoreProvider = ({children}) =>{
         setCategories(cleanedSubcategotiesArray)
     }
 
+    const onFinish = (values) => {
+        console.log('Success:', values);
+        handleOk()
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const handleOk = () => {
+        setLoading(true);
+        setTimeout(() => {
+        setLoading(false);
+        setOpenSignInModal(false);
+        }, 3000);
+    };
+    const handleCancel = () => {
+        setOpenSignInModal(false);
+    };
+    
+
+    const handleSignUpModal = () =>{
+        if(SignInModal){
+            setOpenSignInModal(false)
+        }
+        
+        setTimeout(() => {
+            setOpenSignUpModal(true)
+        }, 100);
+    };
+    const onFinishSingUpModal = (values) => {
+        console.log('Success:', values);
+        handleOkSingUpModal()
+    };
+    const onFinishFailedSingUpModal = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const handleOkSingUpModal = () => {
+        setLoading(true);
+        setTimeout(() => {
+        setLoading(false);
+        setOpenSignUpModal(false);
+        }, 3000);
+    };
+    const handleCancelSingUpModal = () => {
+        setOpenSignUpModal(false);
+    };
+    
     const handleSetCategory = (category)=>{
         setCategory(category)
     }
@@ -150,7 +204,20 @@ const StoreProvider = ({children}) =>{
                 handleSetCar,
                 car,
                 increaseDecreaseProductQuantityInCar,
-                deleteItemFromCar
+                deleteItemFromCar,
+                onFinish,
+                onFinishFailed,
+                handleOk,
+                handleCancel,
+                handleSignUpModal,
+                loading,
+                setOpenSignInModal,
+                openSignInModal,
+                opeSignUpModal,
+                onFinishSingUpModal,
+                onFinishFailedSingUpModal,
+                handleOkSingUpModal,
+                handleCancelSingUpModal,
                 
             }}
         >
