@@ -16,13 +16,24 @@ const StoreProvider = ({children}) =>{
     const [loading, setLoading] = useState(false);
     const [openSignInModal, setOpenSignInModal] = useState(false);
     const [opeSignUpModal, setOpenSignUpModal] = useState(false);
+    
+    const [loadingData, setLoadingData] = useState(true);
+
 
     useEffect(()=>{
         const getProducts = async ()=>{
             const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}`)
             setProducts(data)
         }
-        getProducts()
+        const loadDataPromise = new Promise(resolve => {
+            setTimeout(() => {
+                resolve('Promise resolved, data loaded...')
+                setLoadingData(false)
+                getProducts()
+            }, 1000);
+        })
+        loadDataPromise.then(resolve => alert(resolve))
+                    .catch(err => console.log(err))
     },[])
 
     useEffect(()=>{
@@ -36,7 +47,16 @@ const StoreProvider = ({children}) =>{
         } else if(category === 'clothing'){
             setCategory("men's clothing")
         }
-        getProductsByCategory()
+        const loadDataPromise = new Promise(resolve => {
+            setLoadingData(true)
+            setTimeout(() => {
+                resolve('Promise resolved, data loaded...')
+                setLoadingData(false)
+                getProductsByCategory()
+            }, 1000);
+        })
+        loadDataPromise.then(resolve => alert(resolve))
+                    .catch(err => console.log(err))
             
         
 
@@ -120,6 +140,7 @@ const StoreProvider = ({children}) =>{
         setOpenSignUpModal(false);
         }, 3000);
     };
+
     const handleCancelSingUpModal = () => {
         setOpenSignUpModal(false);
     };
@@ -218,6 +239,9 @@ const StoreProvider = ({children}) =>{
                 onFinishFailedSingUpModal,
                 handleOkSingUpModal,
                 handleCancelSingUpModal,
+                loadingData,
+                setLoadingData,
+
                 
             }}
         >

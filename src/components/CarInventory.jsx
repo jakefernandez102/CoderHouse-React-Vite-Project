@@ -33,7 +33,7 @@ const handleIncreaseQuantity = (product)=>{
               <p className='title-item w-1/3'>{item?.title}</p>
               <p>{formatMoney(item?.price)}</p>
               <div className='flex gap-2'>
-                  <button type='button' className={item.quantity===1?'bg-gray-400 rounded-lg shadow px-3':'bg-white rounded-lg shadow px-3'} onClick={()=>handleDecreaseQuantity(item)} disabled={item.quantity === 1 ? 'true' :''}>-</button>
+                  <button type='button' className={item.quantity===1?'bg-gray-400 rounded-lg shadow px-3':'bg-white rounded-lg shadow px-3'} onClick={()=>handleDecreaseQuantity(item)} disabled={item.quantity === 1 ? true :''}>-</button>
                   <p>{item?.quantity}</p>
                   <button type='button' className='bg-white rounded-lg shadow px-3' onClick={()=>handleIncreaseQuantity(item)}>+</button>
               </div>

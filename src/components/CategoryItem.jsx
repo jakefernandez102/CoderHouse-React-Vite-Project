@@ -4,6 +4,7 @@ import { useState } from "react";
 import Categories from "./Categories";
 import CollapseCategoryButton from "./CollapseCategoryButton";
 import useStore from '../hooks/useStore';
+import { Link } from "react-router-dom";
 
 const CategoryItem = ({category}) => {
     
@@ -39,13 +40,14 @@ const CategoryItem = ({category}) => {
                             className='rounded-lg'
                             />
                 
-                <li className='uppercase font-bold'>
-                    <span>{category.name === 'clothing' ?  <CollapseCategoryButton isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> : category.name}</span>
-                    {category?.clothing && !isCollapsed && (
-                        <Categories key={category.name} categories={category?.clothing}/>
-
-                    )}
-                </li>
+                <Link to='/'>
+                    <li className='uppercase font-bold'>
+                        <span>{category.name === 'clothing' ?  <CollapseCategoryButton isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> : category.name}</span>
+                        {category?.clothing && !isCollapsed && (
+                            <Categories key={category.name} categories={category?.clothing}/>
+                        )}
+                    </li>
+                </Link>
             </div>
 
         </>
