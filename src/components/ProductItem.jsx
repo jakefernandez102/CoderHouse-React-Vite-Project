@@ -16,7 +16,7 @@ const ProductItem = () => {
     }
 
     return (
-    <div className='flex h-full items-center gap-5'>
+    <div className='flex flex-col lg:flex lg:flex-row p-10   items-center lg:h-full  gap-5'>
         <div className='flex items-center justify-center bg-white shadow-lg p-10 cursor-pointer rounded-lg w-1/2 h-1/2'>
             <div className=' flex items-center justify-center '>
                 <div>
@@ -31,12 +31,12 @@ const ProductItem = () => {
             <div className='p-10 border-t-2 border-black'>
                 <p className=' text-gray-500 text-xs'>{product.description}</p>
             </div>
-            <div className='flex justify-between border-t-2 border-black w-full p-10'>
+            <div className='flex justify-between border-t-2 border-black w-full px-10'>
                 <p className='font-bold text-xl'>{formatMoney(product.price)}</p>
-                <div>
-                    <Rate disabled allowHalf defaultValue={rating.rate} />
-                </div>
                 <p className='italic text-gray-400 font-bold  text-sm'>{product.category}</p>
+            </div>
+            <div className='flex justify-center'>
+                <Rate disabled allowHalf defaultValue={rating.rate} />
             </div>
             <div className='flex gap-5 justify-center px-10 pb-5'>
                 <button
