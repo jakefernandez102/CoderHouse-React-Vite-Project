@@ -4,7 +4,7 @@ import CarWidget from './components/CarWidget';
 import Layout from './components/Layout';
 import ProdusctsDisplay from './components/ProdusctsDisplay';
 import useStore from './hooks/useStore';
-import ProductItem from './components/ProductItem';
+import ProductItem from './pages/ProductItem';
 
 
 function App() {

@@ -2,7 +2,7 @@
 import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import App from '../App';
 import Layout from '../components/Layout';
-import ProductItem from '../components/ProductItem';
+import ProductItem from '../pages/ProductItem';
 
 const router = createBrowserRouter([
     {
