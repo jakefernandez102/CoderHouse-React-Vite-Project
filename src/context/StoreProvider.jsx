@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import SignInModal from "../components/SignInModal";
 
 const StoreContext = createContext()
@@ -9,7 +8,6 @@ const StoreProvider = ({children}) =>{
     
     const [categories,setCategories] = useState([])
     const [category,setCategory] = useState("")
-    const [products, setProducts] = useState([])
     const [product, setProduct] = useState({})
     const [car,setCar] = useState([])
 
@@ -20,81 +18,6 @@ const StoreProvider = ({children}) =>{
     const [loadingData, setLoadingData] = useState(true);
 
 
-    useEffect(()=>{
-        const getProducts = async ()=>{
-            const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}`)
-            setProducts(data)
-        }
-        const loadDataPromise = new Promise(resolve => {
-            setTimeout(() => {
-                resolve('Promise resolved, data loaded...')
-                setLoadingData(false)
-                getProducts()
-            }, 1000);
-        })
-        loadDataPromise.then(resolve => alert(resolve))
-                    .catch(err => console.log(err))
-    },[])
-
-    useEffect(()=>{
-        const getProductsByCategory = async ()=>{
-            const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/category/${category}`)
-            // const {data} = await axios.get(`https://api.escuelajs.co/api/v1/products`)
-            setProducts(data)
-        }
-        if(category === ''){
-            return
-        } else if(category === 'clothing'){
-            setCategory("men's clothing")
-        }
-        const loadDataPromise = new Promise(resolve => {
-            setLoadingData(true)
-            setTimeout(() => {
-                resolve('Promise resolved, data loaded...')
-                setLoadingData(false)
-                getProductsByCategory()
-            }, 1000);
-        })
-        loadDataPromise.then(resolve => alert(resolve))
-                    .catch(err => console.log(err))
-            
-        
-
-    },[category])
-
-
-    useEffect(()=>{
-
-        const getCategories = async () =>{
-            try {
-                const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/categories`)
-                // const {data} = await axios.get(`https://api.escuelajs.co/api/v1/categories`)
-                
-                buildSubcategorie(data)
-                // setCategories(data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getCategories();
-
-    },[])
-
-    const buildSubcategorie = (categories) =>{
-        let subcategorie=[];
-        const subcategoriesBuilt = categories.map(category => {
-            
-            if(category.split(' ')[1] === 'clothing'){
-                subcategorie.push({name:category})
-            }
-            if(category.split(' ').length === 1) {
-                return {name:category}
-            }  
-        })
-        const cleanedSubcategotiesArray = subcategoriesBuilt.filter(categorie => categorie !== undefined)
-        cleanedSubcategotiesArray.push({name:'clothing',clothing:subcategorie});
-        setCategories(cleanedSubcategotiesArray)
-    }
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -209,17 +132,21 @@ const StoreProvider = ({children}) =>{
     }
 
     const deleteItemFromCar = (item) => {
-        const selectedItem = car.filter(_item => _item.id !== item.id)
-        setCar([...selectedItem])
+        const confirmed = confirm(`Do you really want to delete this item? ${item.name}`)
+        if(confirmed){
+            const selectedItem = car.filter(_item => _item.id !== item.id)
+            setCar([...selectedItem])
+        }
     }
 
     return(
         <StoreContext.Provider
             value={{
+                setCategories,
                 categories,
+                setCategory,
                 category,
                 handleSetCategory,
-                products,
                 handleSetProduct,
                 product,
                 handleSetCar,

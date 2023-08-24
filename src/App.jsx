@@ -2,15 +2,11 @@
 import { useParams } from 'react-router-dom';
 import CarWidget from './components/CarWidget';
 import Layout from './components/Layout';
-import ProdusctsDisplay from './components/ProdusctsDisplay';
-import useStore from './hooks/useStore';
+import ProdusctsListDisplay from './components/ProductsListContainer';
 import ProductItem from './pages/ProductItem';
 
 
 function App() {
-
-
-  const {products,product} = useStore()
   
   const {id} = useParams()
 
@@ -21,7 +17,7 @@ function App() {
 
         {
           id  ? <ProductItem/>
-              : <ProdusctsDisplay  products={products}/>
+              : <ProdusctsListDisplay/>
         }
       </Layout>
     </>

@@ -11,6 +11,8 @@ const NavBar = () => {
     return (
     <aside className='md:w-4/12 xl:w-1/4 2xl:w-1/5 p-5'>
         <div className=''>
+
+
             <img 
                 src={Logo} 
                 alt="Logo Image" 
