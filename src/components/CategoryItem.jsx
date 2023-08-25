@@ -4,24 +4,25 @@ import { useState } from "react";
 import Categories from "./Categories";
 import CollapseCategoryButton from "./CollapseCategoryButton";
 import useStore from '../hooks/useStore';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CategoryItem = ({category}) => {
     
     const [isCollapsed,setIsCollapsed] = useState(true);
     const {handleSetCategory} = useStore();
-    
+    const {categoryId} = useParams();
+
     const handleClick = (e)=>{
         e.stopPropagation();
-        console.log(category);
-        handleSetCategory(category.name)
+        console.log(categoryId);
+        handleSetCategory(categoryId)
     }
     
     return (
         <>
             <div
-                className={category.name === 'clothing'?'flex items-center gap-2 rounded-lg transition-all  hover:shadow-md  cursor-pointer':'flex items-center gap-2 rounded-lg transition-all hover:shadow-md hover:bg-slate-400 hover:text-white cursor-pointer'}
-                onClick={handleClick}
+                className={categoryId === 'clothing'?'flex items-center gap-2 rounded-lg transition-all  hover:shadow-md  cursor-pointer': categoryId === category.name ? 'flex items-center gap-2 rounded-lg transition-all hover:shadow-md bg-slate-400 hover:bg-slate-400 hover:text-white cursor-pointer':'flex items-center gap-2 rounded-lg transition-all hover:shadow-md  hover:bg-slate-400 hover:text-white cursor-pointer'}
+                onClick={(e)=>handleClick(e)}
                 >
                 <img 
                     src={category.name === 'electronics' 
@@ -40,7 +41,7 @@ const CategoryItem = ({category}) => {
                             className='rounded-lg'
                             />
                 
-                <Link to='/'>
+                <Link to={`/${category.name}`}>
                     <li className='uppercase font-bold'>
                         <span>{category.name === 'clothing' ?  <CollapseCategoryButton isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> : category.name}</span>
                         {category?.clothing && !isCollapsed && (

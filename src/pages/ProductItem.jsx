@@ -10,7 +10,7 @@ const ProductItem = () => {
     const [quantity,setQuantity] = useState(1)
     const {product,handleSetCar,handleDecreaseQuantity,handleIncreaseQuantity} = useStore()
     const {category,description, id, image, price,rating,title} = product;
-
+    
     const handleClick = ()=>{
         const productCar = {id,title,description,image,price,category,quantity}
         handleSetCar(productCar)

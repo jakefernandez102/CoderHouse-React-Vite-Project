@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useStore from "../hooks/useStore";
 import Product from "./Product";
 import Spinner from "./Spinner";
@@ -11,7 +11,7 @@ const ProdusctsListDisplay = () => {
 
     const [products,setProducts] = useState([])
     const {category,handleSetProduct,loadingData,setLoadingData,setCategory} = useStore()
-
+    const {categoryId} = useParams()
     useEffect(()=>{
     const getProducts = async ()=>{
         const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}`)
@@ -31,7 +31,7 @@ const ProdusctsListDisplay = () => {
     useEffect(()=>{
         const getProductsByCategory = async ()=>{
             setProducts([])
-            const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/category/${category}`)
+            const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/category/${categoryId}`)
             // const {data} = await axios.get(`https://api.escuelajs.co/api/v1/products`)
             setProducts(data)
         }
@@ -53,7 +53,7 @@ const ProdusctsListDisplay = () => {
             
         
 
-    },[category])
+    },[categoryId])
 
 
     const handleClick = (product)=>{
@@ -64,7 +64,7 @@ const ProdusctsListDisplay = () => {
         <>
         <h1
             className='font-bold uppercase text-4xl py-10'
-        >{category}</h1>
+        >{categoryId}</h1>
         {
         loadingData 
             ?   
@@ -79,8 +79,7 @@ const ProdusctsListDisplay = () => {
                                 products.map(product=> (                        
 
                                         (
-                                            <Link
-                                                to={`/product-item/${product.id}`}
+                                            <div
                                                 key={product.id}
                                                 className='bg-white p-10 cursor-pointer rounded-lg'
                                                 onClick={()=>{
@@ -88,7 +87,7 @@ const ProdusctsListDisplay = () => {
                                                 }}
                                             >
                                                 <Product product={product}/>
-                                            </Link>
+                                            </div>
                                         )
                                 ))
                         }
