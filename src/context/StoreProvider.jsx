@@ -41,11 +41,20 @@ const StoreProvider = ({children}) =>{
 
     const handleSignUpModal = () =>{
         if(SignInModal){
-            setOpenSignInModal(false)
+            setOpenSignInModal(!openSignInModal)
         }
         
         setTimeout(() => {
             setOpenSignUpModal(true)
+        }, 100);
+    };
+    const handleSignInModal = () =>{
+        if(SignInModal){
+            setOpenSignUpModal(!opeSignUpModal)
+        }
+        
+        setTimeout(() => {
+            setOpenSignInModal(!openSignInModal)
         }, 100);
     };
     const onFinishSingUpModal = (values) => {
@@ -161,6 +170,7 @@ const StoreProvider = ({children}) =>{
                 loading,
                 setOpenSignInModal,
                 openSignInModal,
+                handleSignInModal,
                 opeSignUpModal,
                 onFinishSingUpModal,
                 onFinishFailedSingUpModal,

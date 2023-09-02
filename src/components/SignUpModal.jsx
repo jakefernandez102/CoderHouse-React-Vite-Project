@@ -1,15 +1,39 @@
 import { Button, Modal, Checkbox, Form, Input } from 'antd';
 import useStore from '../hooks/useStore';
+import { useState } from 'react';
+import useAuth from '../hooks/useAuth';
+import { generateNewID } from '../helpers/generateID.js';
 
 const SignUpModal = () => {
 
-        const {
-            onFinishSingUpModal,
-            onFinishFailedSingUpModal,
-            handleCancelSingUpModal,
-            handleSignUpModal,
-            loading,
-            opeSignUpModal} = useStore()
+    const [name,setName]=useState('')
+    const [lastName,setLastName]=useState('')
+    const [phoneNumber,setPhoneNumber]=useState('')
+    const [userName,setUserName]=useState('')
+    const [email,setEmail]=useState('')
+    const [password,setPassword]=useState('')
+
+    const {createUser}=useAuth()
+
+    const {
+        onFinishSingUpModal,
+        onFinishFailedSingUpModal,
+        handleCancelSingUpModal,
+        handleSignInModal,
+        loading,
+        opeSignUpModal} = useStore()
+
+    const handleSubmit=async()=>{
+        createUser({
+            id:generateNewID(),
+            name,
+            lastName,
+            phoneNumber,
+            userName,
+            email,
+            password
+        })
+    }
 
 
     return (
@@ -41,6 +65,7 @@ const SignUpModal = () => {
                 onFinish={onFinishSingUpModal}
                 onFinishFailed={onFinishFailedSingUpModal}
                 autoComplete="off"
+                onSubmitCapture={handleSubmit}
             >
 
                 <Form.Item
@@ -53,7 +78,10 @@ const SignUpModal = () => {
                     },
                 ]}
                 >
-                <Input />
+                <Input 
+                    value={name}
+                    onChange={(e)=>setName(e.target.value)}
+                />
                 </Form.Item>
 
                 <Form.Item
@@ -66,7 +94,10 @@ const SignUpModal = () => {
                     },
                 ]}
                 >
-                <Input />
+                <Input 
+                    value={lastName}
+                    onChange={(e)=>setLastName(e.target.value)}
+                />
                 </Form.Item>
                 
                 <Form.Item
@@ -74,7 +105,10 @@ const SignUpModal = () => {
                 name="phone-number"
 
                 >
-                <Input />
+                <Input 
+                    value={phoneNumber}
+                    onChange={(e)=>setPhoneNumber(e.target.value)}
+                />
                 </Form.Item>
                 
                 <Form.Item
@@ -87,7 +121,10 @@ const SignUpModal = () => {
                     },
                 ]}
                 >
-                <Input />
+                <Input 
+                    value={userName}
+                    onChange={(e)=>setUserName(e.target.value)}
+                />
                 </Form.Item>
                 
                 <Form.Item
@@ -100,7 +137,10 @@ const SignUpModal = () => {
                     },
                 ]}
                 >
-                <Input />
+                <Input 
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
+                />
                 </Form.Item>
  
                 <Form.Item
@@ -113,7 +153,10 @@ const SignUpModal = () => {
                     },
                 ]}
                 >
-                <Input.Password />
+                <Input.Password 
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
+                />
                 </Form.Item>
 
                 <Form.Item
@@ -136,8 +179,8 @@ const SignUpModal = () => {
                 <Button className='bg-sky-500 mr-5' type="primary" htmlType="submit" loading={loading}>
                     Submit
                 </Button> 
-                <button  className='underline text-sky-500' onClick={handleSignUpModal}>
-                Do not have an account? Sign Up
+                <button  className='underline text-sky-500' onClick={handleSignInModal}>
+                Do you already have an account? Sign In
                 </button>
                 </Form.Item>
             </Form>

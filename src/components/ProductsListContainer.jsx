@@ -5,41 +5,45 @@ import useStore from "../hooks/useStore";
 import Product from "./Product";
 import Spinner from "./Spinner";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getCategory, getProducts } from "../data/firebase";
 
 const ProdusctsListDisplay = () => {
 
     const [products,setProducts] = useState([])
     const {category,handleSetProduct,loadingData,setLoadingData,setCategory} = useStore()
     const {categoryId} = useParams()
-    useEffect(()=>{
-    const getProducts = async ()=>{
-        const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}`)
-        setProducts(data)
-    }
-    const loadDataPromise = new Promise(resolve => {
-        setTimeout(() => {
-            resolve('Promise resolved, data loaded...')
-            setLoadingData(false)
-            getProducts()
-        }, 1000);
-    })
-    loadDataPromise.then(resolve => console.log(resolve))
-                .catch(err => console.log(err))
+    
+    useEffect( ()=>{
+    
+        const shootGetProducts = async ()=>{
+        setProducts(await getProducts())
+        }
+
+        const loadDataPromise = new Promise(resolve => {
+            setTimeout(() => {
+                resolve('Promise resolved, data loaded...')
+                setLoadingData(false)
+                shootGetProducts()
+            }, 500);
+        })
+    
+        loadDataPromise.then(resolve => console.log(resolve))
+                    .catch(err => console.log(err))
     },[])
 
     useEffect(()=>{
+
         const getProductsByCategory = async ()=>{
             setProducts([])
-            const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/category/${categoryId}`)
-            // const {data} = await axios.get(`https://api.escuelajs.co/api/v1/products`)
-            setProducts(data)
+            setProducts(await getCategory(categoryId))
         }
+
         if(category === ''){
             return
         } else if(category === 'clothing'){
             setCategory("men's clothing")
         }
+
         const loadDataPromise = new Promise(resolve => {
             setLoadingData(true)
             setTimeout(() => {
@@ -50,9 +54,6 @@ const ProdusctsListDisplay = () => {
         })
         loadDataPromise.then(resolve => (resolve))
                     .catch(err => console.log(err))
-            
-        
-
     },[categoryId])
 
 

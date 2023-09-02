@@ -9,10 +9,7 @@ import { Link } from 'react-router-dom';
 // eslint-disable-next-line react/prop-types
 const Product = ({product}) => {
 
-    const {category,description, id, image, price,rating,title} = product;
-
-    const [quantity, setQuantity] =useState(1)
-    
+    const {category,description, id, image, price,rating,title} = product;    
 
     
     return (
@@ -28,10 +25,13 @@ const Product = ({product}) => {
         </div>
         <div className='flex justify-between w-full'>
             <p className='font-bold text-xl'>{formatMoney(price)}</p>
+
+            <p className='italic text-gray-400 font-bold  text-sm'>{category}</p>
+        </div>
+        <div className='p-3 mb-5'>
             <div>
                 <Rate disabled allowHalf defaultValue={rating.rate} />
             </div>
-            <p className='italic text-gray-400 font-bold  text-sm'>{category}</p>
         </div>
         <div>
             <Link

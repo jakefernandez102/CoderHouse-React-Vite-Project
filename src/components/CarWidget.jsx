@@ -1,26 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CarInventory from "./CarInventory";
 import useStore from '../hooks/useStore';
 import { Button } from 'antd';
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
+import useAuth from "../hooks/useAuth";
+
+
 
 
 
 const CarWidget = () => {
+
     const [isActive, setIsActive] = useState(false)
-    const [user,setUser] = useState(true)
     
+    const {auth,signOutUser,currentUser,setCurrentUser,getUserWhenLoggedIn}=useAuth()
     const {car,setOpenSignInModal} = useStore()
-
-
+    
+    useEffect(()=>{
+      const loadUser = async () => {
+        if(auth?.currentUser?.email){
+          setCurrentUser(await getUserWhenLoggedIn(auth?.currentUser?.email))
+        }
+      }
+      loadUser()
+    },[auth])
 
   return (
     <>
+
         <div className='w-full bg-black h-14 flex justify-end items-center px-5 gap-5 '>
           <div className='flex items-center gap-5'>
             {
-              user 
+              currentUser === null 
               ?
               ( <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="gray" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -29,9 +41,27 @@ const CarWidget = () => {
               (<img src="/img/jewerly.avif" width={50}  alt="user image" className='rounded-full' />)
             }
           </div>
-          <Button  type="primary" onClick={() => setOpenSignInModal(true)} >
-            Sign In
-          </Button>
+          {
+            auth?.currentUser?.email !== undefined
+            ?
+              (
+                <>
+                  <p className='text-white'>{currentUser?.userName}</p>
+                  <Button  type="primary" onClick={() => signOutUser()} >
+                    Sign Out
+                  </Button>
+                </>
+              )
+            :
+              (
+                <Button  type="primary" onClick={() => {
+                  setOpenSignInModal(true)
+                  }}>
+                  Sign In
+                </Button>
+              )
+                
+          }
           <a 
               href="#"
               onClick={()=> setIsActive(!isActive)}

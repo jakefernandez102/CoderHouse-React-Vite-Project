@@ -5,15 +5,27 @@ import { formatMoney } from "../helpers/formatMoney";
 import useStore from "../hooks/useStore";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const ProductItem = () => {
     const [quantity,setQuantity] = useState(1)
-    const {product,handleSetCar,handleDecreaseQuantity,handleIncreaseQuantity} = useStore()
+    const {product,handleSetCar} = useStore()
     const {category,description, id, image, price,rating,title} = product;
     
     const handleClick = ()=>{
+        
         const productCar = {id,title,description,image,price,category,quantity}
         handleSetCar(productCar)
+        toast.success(`Product ${title} added successfully`, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
     }
 
     const handleIncreaseButtom = ()=>{
@@ -26,7 +38,7 @@ const ProductItem = () => {
     }
 
     return (
-    <div className='flex flex-col lg:flex lg:flex-row sm:p-10   items-center   gap-5'>
+    <div className='flex flex-col lg:flex lg:flex-row sm:p-10 items-center gap-5 h-full'>
         <div className='flex items-center justify-center bg-white shadow-lg p-10 cursor-pointer rounded-lg w-full h-full  md:w-1/2 md:h-1/2'>
             <div className=' flex items-center justify-center '>
                 <div>
@@ -34,7 +46,7 @@ const ProductItem = () => {
                 </div>
             </div>
         </div>
-        <div className='flex flex-col justify-between items-center border-2 border-gray-400 w-full h-full  md:w-1/2 md:h-1/2'>
+        <div className='bg-sky-100 flex flex-col justify-between items-center border-2 border-gray-400 w-full h-full  md:w-1/2 md:h-1/2 shadow-lg'>
             <div className='p-10 '>
                 <h2 className='boder border-b uppercase font-bold my-5 text-sm'>{product.title}</h2>
             </div>

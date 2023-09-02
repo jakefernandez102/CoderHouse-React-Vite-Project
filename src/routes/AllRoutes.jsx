@@ -4,6 +4,7 @@ import App from '../App';
 import Layout from '../components/Layout';
 import ProductItem from '../pages/ProductItem';
 import ErrorPage from '../pages/ErrorPage';
+import Bill from '../pages/Bill';
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
             {
                 path:'/product-item/:id',
                 element:<ProductItem />,
+                errorElement:<ErrorPage/>,
+            },
+            {
+                path:'/bill/:orderId',
+                element:<Bill />,
                 errorElement:<ErrorPage/>,
             },
         ]

@@ -1,9 +1,23 @@
 
 
+import { useEffect } from 'react';
 import Footer from './Footer';
 import NavBar from './NavBar';
+import useAuth from '../hooks/useAuth';
 // eslint-disable-next-line react/prop-types
 const Layout = ({children}) => {
+
+  const {auth,setCurrentUser,getUserWhenLoggedIn,currentUser}=useAuth()
+
+  useEffect(()=>{
+    const loadUser = async ()=>{
+      if(auth?.currentUser){
+        setCurrentUser(await getUserWhenLoggedIn(auth?.currentUser.email))
+
+      }
+    }
+    loadUser()
+  },[auth])
 
   return (
     <>

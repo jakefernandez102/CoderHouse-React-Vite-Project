@@ -1,4 +1,4 @@
-export function formatMoney ( ammount )
+export function formatMoney ( ammount = 0 )
 {
     const ammountFormated = ammount.toLocaleString( 'en-US', {
         style: 'currency',

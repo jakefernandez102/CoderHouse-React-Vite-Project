@@ -1,19 +1,55 @@
 /* eslint-disable react/prop-types */
+import { toast } from 'react-toastify';
+import { addOrderToUserCart } from '../data/firebase';
 import { formatMoney } from '../helpers/formatMoney';
+import useAuth from '../hooks/useAuth';
 import useStore from '../hooks/useStore';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const CarInventory = ({car}) => {
 
-  const {increaseDecreaseProductQuantityInCar,deleteItemFromCar}=useStore()
+  const {currentUser,auth}=useAuth()
+  const {increaseDecreaseProductQuantityInCar,deleteItemFromCar,setCar}=useStore()
+
+  const navigate =useNavigate()
 
   const handleDecreaseQuantity = (product)=>{
   increaseDecreaseProductQuantityInCar(product,'decrease')
 }
 
-const handleIncreaseQuantity = (product)=>{
+  const handleIncreaseQuantity = (product)=>{
     increaseDecreaseProductQuantityInCar(product,'increase')
+  }
+  
+  const handleBuyProducts=()=>{
+    if(!auth.currentUser){
+      toast.error('Pease sign In first to complete the purchase', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      });
+      return
+    }
+    addOrderToUserCart(car,currentUser)
+    setCar([])
+    toast.success('Your purchase has been processed successfully!!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
+    navigate('/bill/o9l6cv8i95klm1fym2z')
   }
   
 
@@ -38,7 +74,12 @@ const handleIncreaseQuantity = (product)=>{
                   <button type='button' className='bg-white rounded-lg shadow px-3' onClick={()=>handleIncreaseQuantity(item)}>+</button>
               </div>
               <button className='rounded-lg bg-red-600 text-white font-bold uppercase px-2 py-3 hover:bg-red-700' onClick={()=>deleteItemFromCar(item)}>Delete</button>
-              <button className='rounded-lg bg-green-600 text-white font-bold uppercase px-2 py-3 hover:bg-green-700'>buy</button>
+              <button 
+                className='rounded-lg bg-green-600 text-white font-bold uppercase px-2 py-3 hover:bg-green-700'
+                onClick={handleBuyProducts}
+              >
+                Buy Now
+              </button>
           </div>
           
           
