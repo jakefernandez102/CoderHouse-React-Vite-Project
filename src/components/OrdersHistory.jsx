@@ -1,3 +1,4 @@
+/* eslint-disable valid-typeof */
 
 import { calculateFee, calculateSubTotal, calculateTaxes, calculateTotal } from '../helpers/calculateOperations.js';
 import { formatMoney } from '../helpers/formatMoney.js';

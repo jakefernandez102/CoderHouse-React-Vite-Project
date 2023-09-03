@@ -20,10 +20,7 @@ const CarWidget = () => {
     const {car,setOpenSignInModal} = useStore()
     
     useEffect(()=>{
-        if(userLS){
-            handleSetImageUrl({name:userLS.image})
-            return
-        }
+
       const loadUser = async () => {
         if(auth?.currentUser?.email){
           setCurrentUser(await getUserWhenLoggedIn(auth?.currentUser?.email))

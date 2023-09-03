@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { createContext,  useState } from "react";
+import { createContext,  useEffect,  useState } from "react";
 import { app, db} from "../data/firebase";
 import { and, collection, doc,  getDocs, query, setDoc, where } from "firebase/firestore";
 import { toast } from "react-toastify";
@@ -10,14 +10,24 @@ const AuthContext = createContext();
 
 
 const AuthProvider = ({children}) => {
-
+    const userLS= typeof window !== undefined ? JSON.parse(localStorage.getItem('userLogged')) ?? [] : []
+    
     const [currentUser,setCurrentUser]=useState(typeof window !== 'undefined' ? JSON.parse( localStorage.getItem( 'userLogged' ) ) ?? null : null)
     
     const [imageURL,setImageURL] = useState({});
 
     const auth = getAuth( app );
 
+    useEffect(()=>{
+        if(userLS){
+            handleSetImageUrl({name:userLS.image})
+            return
+        }
+        
+    },[auth])
     const createUser = async (user)=>{
+        localStorage.setItem( 'userLogged', JSON.stringify( user ) );
+
 
         if(!auth)return
         try {
@@ -27,12 +37,11 @@ const AuthProvider = ({children}) => {
             await createUserWithEmailAndPassword( auth, user.email, user.password );
             await signInWithEmailAndPassword(auth,user.email,user.password)
             setCurrentUser(await getUserWhenLoggedIn(user.email))
-            localStorage.setItem( 'userLogged', JSON.stringify( user ) );
         } catch (error) {
             switch (error.code) {
                 case 'auth/email-already-in-use':
                     console.log();
-                    toast.error(`Email address ${this.state.email} already in use.`, {
+                    toast.error(`Email address ${user.email} already in use.`, {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -44,8 +53,8 @@ const AuthProvider = ({children}) => {
                     });
                     break;
                 case 'auth/invalid-email':
-                    console.log(`Email address ${this.state.email} is invalid.`);
-                    toast.error(`Email address ${this.state.email} is invalid.`, {
+                    console.log(`Email address ${user.email} is invalid.`);
+                    toast.error(`Email address ${user.email} is invalid.`, {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -141,7 +150,7 @@ const AuthProvider = ({children}) => {
             switch (error.code) {
                 case 'auth/email-already-in-use':
                     console.log();
-                    toast.error(`Email address ${this.state.email} already in use.`, {
+                    toast.error(`Email address ${email} already in use.`, {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -153,8 +162,8 @@ const AuthProvider = ({children}) => {
                     });
                     break;
                 case 'auth/invalid-email':
-                    console.log(`Email address ${this.state.email} is invalid.`);
-                    toast.error(`Email address ${this.state.email} is invalid.`, {
+                    console.log(`Email address ${email} is invalid.`);
+                    toast.error(`Email address ${email} is invalid.`, {
                         position: "top-center",
                         autoClose: 5000,
                         hideProgressBar: false,

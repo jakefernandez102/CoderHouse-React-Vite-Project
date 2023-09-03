@@ -3,6 +3,7 @@ import useStore from '../hooks/useStore';
 import { useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import { generateNewID } from '../helpers/generateID.js';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpModal = () => {
 
@@ -15,6 +16,8 @@ const SignUpModal = () => {
 
     const {createUser}=useAuth()
 
+    const navigate = useNavigate()
+
     const {
         onFinishSingUpModal,
         onFinishFailedSingUpModal,
@@ -25,16 +28,20 @@ const SignUpModal = () => {
 
     const handleSubmit=async()=>{
         if([name,lastName,userName,email,password].includes(''))return
-        createUser({
-            id:generateNewID(),
+        const id = generateNewID()
+        await createUser({
+            id,
             name,
             lastName,
             phoneNumber,
             userName,
-            image:"",
+            image:"../img/user-profile.png",
             email,
             password
         })
+        setTimeout(() => {
+            navigate(`/user-settings/${id}`)
+        }, 2000);
     }
 
 

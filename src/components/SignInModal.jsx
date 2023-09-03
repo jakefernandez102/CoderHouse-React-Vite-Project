@@ -2,6 +2,7 @@ import { Button, Modal, Checkbox, Form, Input } from 'antd';
 import useAuth from '../hooks/useAuth';
 import useStore from '../hooks/useStore';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -13,7 +14,7 @@ const SignInModal = () => {
     const [password,setPassword]=useState('')
 
     const {getUser,getUserWhenLoggedIn} = useAuth()
-
+    const navigate = useNavigate()
     const {
         onFinish,
         onFinishFailed,
@@ -27,6 +28,9 @@ const SignInModal = () => {
         await getUser({email,password})
         const userFB = await getUserWhenLoggedIn(email)
         localStorage.setItem('userLogged',JSON.stringify(userFB))
+        setTimeout(() => {
+            navigate(`/user-settings/${userFB.id}`)
+        }, 500);
     }
     
 
