@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { Timestamp, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, query, setDoc, where } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -10,18 +11,30 @@ const firebaseConfig = {
     messagingSenderId: `${ import.meta.env.VITE_FIREBASE_MESSAGINSENDERID }`,
     appId: `${ import.meta.env.VITE_FIREBASE_APPID }`,
 }; import { generateNewID } from '../helpers/generateID.js';
+import { toast } from "react-toastify";
 
 
 // Initialize Firebase
 export const app = initializeApp( firebaseConfig );
 export const db = getFirestore( app );
-
+export const storage = getStorage( app );
 
 export async function getProducts ()
 {
     const docsRef = collection( db, 'products' );
     const snapshot = await getDocs( docsRef );
     return snapshot.docs.map( doc => doc.data() );
+}
+
+export async function getCategoriesFS ()
+{
+    const collectionRef = collection( db, 'products' );
+    const snapshot = await getDocs( collectionRef );
+    const users = snapshot.docs.map( doc => doc.data() );
+
+    const categories = users.map( user => user.category );
+    const uniqueCategories = [...new Set( categories )];
+    return uniqueCategories;
 }
 
 export async function getCategory ( category )
@@ -87,4 +100,61 @@ export async function getLastOrder ( orderId )
     return user.orders;
 
 
+}
+
+export async function changePassword ( user )
+{
+    const docRef = doc( db, 'users', user.id );
+    await setDoc( docRef, user );
+    localStorage.setItem( 'userLogged', JSON.stringify( user ) );
+
+    toast.success( 'Password changed successfully!!!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    } );
+}
+export async function updateUser ( user )
+{
+    const docRef = doc( db, 'users', user.id );
+    await setDoc( docRef, user );
+    localStorage.setItem( 'userLogged', JSON.stringify( user ) );
+
+    toast.success( 'User modified successfully!!!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    } );
+}
+
+export async function uploadUserImage ( imageToUpload )
+{
+    console.log( imageToUpload );
+    const imageRef = ref( storage, `images/users_image/${ imageToUpload.name }` );
+    await uploadBytes( imageRef, imageToUpload );
+
+    getDownloadURL( imageRef ).then( response =>
+    {
+        localStorage.setItem( 'actualImage', JSON.stringify( { name: response } ) );
+    } );
+    toast.success( 'Image changed successfully!!!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    } );
 }

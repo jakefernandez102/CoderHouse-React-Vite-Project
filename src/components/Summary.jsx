@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-import { calculateSubTotal } from '../helpers/calculateOperations.js';
 import { formatMoney } from '../helpers/formatMoney.js';
-import useStore from '../hooks/useStore.jsx';
 
 const Summary = ({order}) => {
     

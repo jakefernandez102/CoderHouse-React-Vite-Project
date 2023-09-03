@@ -26,7 +26,6 @@ const SignInModal = () => {
         e.preventDefault()
         await getUser({email,password})
         const userFB = await getUserWhenLoggedIn(email)
-        console.log(userFB)
         localStorage.setItem('userLogged',JSON.stringify(userFB))
     }
     

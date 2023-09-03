@@ -14,7 +14,6 @@ const CategoryItem = ({category}) => {
 
     const handleClick = (e)=>{
         e.stopPropagation();
-        console.log(categoryId);
         handleSetCategory(categoryId)
     }
     

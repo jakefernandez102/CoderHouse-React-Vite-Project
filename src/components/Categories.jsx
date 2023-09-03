@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import CategoryItem from "./CategoryItem";
 import useStore from "../hooks/useStore";
-import axios from "axios";
+import { getCategoriesFS } from "../data/firebase.js";
 
 const Categories = ({categories}) => {
 
@@ -13,11 +13,9 @@ const Categories = ({categories}) => {
 
         const getCategories = async () =>{
             try {
-                const {data} = await axios.get(`${import.meta.env.VITE_API_PRODUCTS_URL}/categories`)
-                // const {data} = await axios.get(`https://api.escuelajs.co/api/v1/categories`)
-                
+                const data= await getCategoriesFS();
                 buildSubcategorie(data)
-                // setCategories(data)
+
             } catch (error) {
                 console.log(error)
             }

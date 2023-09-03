@@ -5,19 +5,25 @@ import { Button } from 'antd';
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 
 
 
 
 const CarWidget = () => {
-
+    const userLS= typeof window !== undefined ? JSON.parse(localStorage.getItem('userLogged')) ?? [] : []
+ 
     const [isActive, setIsActive] = useState(false)
     
-    const {auth,signOutUser,currentUser,setCurrentUser,getUserWhenLoggedIn}=useAuth()
+    const {auth,signOutUser,currentUser,setCurrentUser,getUserWhenLoggedIn,imageURL,handleSetImageUrl}=useAuth()
     const {car,setOpenSignInModal} = useStore()
     
     useEffect(()=>{
+        if(userLS){
+            handleSetImageUrl({name:userLS.image})
+            return
+        }
       const loadUser = async () => {
         if(auth?.currentUser?.email){
           setCurrentUser(await getUserWhenLoggedIn(auth?.currentUser?.email))
@@ -25,6 +31,8 @@ const CarWidget = () => {
       }
       loadUser()
     },[auth])
+
+
 
   return (
     <>
@@ -38,7 +46,7 @@ const CarWidget = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>)
               :
-              (<img src="/img/jewerly.avif" width={50}  alt="user image" className='rounded-full' />)
+              (<img src={imageURL.name} width={40}  alt="user image" className='rounded-full' />)
             }
           </div>
           {
@@ -46,7 +54,10 @@ const CarWidget = () => {
             ?
               (
                 <>
-                  <p className='text-white'>{currentUser?.userName}</p>
+                  <Link 
+                    to={`/user-settings/${currentUser?.id}`}
+                    className='text-white cursor-pointer hover:underline' 
+                  >{currentUser?.userName}</Link>
                   <Button  type="primary" onClick={() => signOutUser()} >
                     Sign Out
                   </Button>

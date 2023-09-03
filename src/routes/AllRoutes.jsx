@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import ProductItem from '../pages/ProductItem';
 import ErrorPage from '../pages/ErrorPage';
 import Bill from '../pages/Bill';
+import UserSettings from '../components/UserSettings';
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
             {
                 path:'/bill/:orderId',
                 element:<Bill />,
+                errorElement:<ErrorPage/>,
+            },
+            {
+                path:'/user-settings/:userId',
+                element:<UserSettings />,
                 errorElement:<ErrorPage/>,
             },
         ]

@@ -24,12 +24,14 @@ const SignUpModal = () => {
         opeSignUpModal} = useStore()
 
     const handleSubmit=async()=>{
+        if([name,lastName,userName,email,password].includes(''))return
         createUser({
             id:generateNewID(),
             name,
             lastName,
             phoneNumber,
             userName,
+            image:"",
             email,
             password
         })
