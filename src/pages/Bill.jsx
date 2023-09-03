@@ -32,16 +32,22 @@ const Bill = () => {
         <div className='flex items-center justify-center mt-10'>
             <ul  className='flex flex-col gap-3 w-3/4'>
               {
-                orders.map(order=>(
-                  order?.order?.map(_order=>{
-                    subTotal = calculateSubTotal(parseInt(_order?.price),parseInt(_order?.quantity))
-                    taxes = calculateTaxes(subTotal)
-                    fee = calculateFee(subTotal)  
-                    grandTotal = calculateTotal(taxes,fee,subTotal)
-                    return (
-                      <Summary key={_order.id} order={_order} />
-                      )})
-                ))
+                orders.map(order=>{
+                  subTotal=0
+                  return(
+                    order?.order?.map(_order=>{
+                    if(order.id === orderId.split('-')[1]){
+                      
+                      subTotal = calculateSubTotal(subTotal,parseInt(_order?.price),parseInt(_order?.quantity))
+                      taxes = calculateTaxes(subTotal)
+                      fee = calculateFee(subTotal)  
+                      grandTotal = calculateTotal(taxes,fee,subTotal)
+                      return (
+                        <Summary key={_order.id} order={_order} />
+                        )
+                    }
+                    })
+                )})
               }
               
               

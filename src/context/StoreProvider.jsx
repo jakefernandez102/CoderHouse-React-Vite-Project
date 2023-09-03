@@ -160,6 +160,7 @@ const StoreProvider = ({children}) =>{
                 product,
                 handleSetCar,
                 car,
+                setCar,
                 increaseDecreaseProductQuantityInCar,
                 deleteItemFromCar,
                 onFinish,

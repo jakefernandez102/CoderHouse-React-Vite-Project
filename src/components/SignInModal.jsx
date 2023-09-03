@@ -119,6 +119,9 @@ const SignInModal = () => {
                     </button>
                     </Form.Item>
                 </Form>
+                <p>User test:</p>
+                <p>email: jake@correo.com</p>
+                <p>password: 1234567</p>
             </Modal>
         </>
     )

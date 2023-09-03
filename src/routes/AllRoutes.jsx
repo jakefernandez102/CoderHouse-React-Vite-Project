@@ -38,6 +38,11 @@ const router = createBrowserRouter([
                 element:<UserSettings />,
                 errorElement:<ErrorPage/>,
             },
+            {
+                path:'/orders-history/:ordersUserId',
+                element:<UserSettings />,
+                errorElement:<ErrorPage/>,
+            },
         ]
         
     }

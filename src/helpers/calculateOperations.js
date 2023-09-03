@@ -1,7 +1,8 @@
-let acumulate = 0;
 
-export function calculateSubTotal ( ammount, quantity )
+
+export function calculateSubTotal ( acumulate, ammount, quantity )
 {
+
     acumulate = acumulate + ( ammount * quantity );
     return ( acumulate );
 }

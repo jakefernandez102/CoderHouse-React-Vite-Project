@@ -37,7 +37,22 @@ const CarWidget = () => {
   return (
     <>
 
-        <div className='w-full bg-black h-14 flex justify-end items-center px-5 gap-5 '>
+        <div className='w-full bg-black h-14 flex justify-between items-center px-5 gap-5 '>
+          <div>
+            {
+              currentUser !== null && 
+              (
+            <Link
+              to={`/orders-history/${currentUser?.id}`}
+              className='text-white '
+            >
+              Orders History
+            </Link>
+              )
+            }
+          </div>
+          <div className='flex items-center gap-5'>
+          
           <div className='flex items-center gap-5'>
             {
               currentUser === null 
@@ -84,6 +99,7 @@ const CarWidget = () => {
               </svg>
               <div className='notification fixed'>{car.length}</div>
           </a>
+        </div>
         </div>
         {
             isActive &&

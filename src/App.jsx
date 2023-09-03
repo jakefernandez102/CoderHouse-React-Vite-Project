@@ -8,10 +8,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Bill from './pages/Bill';
 import UserSettings from './components/UserSettings';
+import OrdersHistory from './components/OrdersHistory';
 
 function App() {
   
-  const {id,orderId,userId} = useParams()
+  const {id,orderId,userId,ordersUserId} = useParams()
+  console.log(ordersUserId)
   return (
     <>
       <Layout>
@@ -21,7 +23,8 @@ function App() {
           id  ? <ProductItem/>
               : orderId ? <Bill/>
                         : userId  ? <UserSettings/>
-                                  : <ProdusctsListDisplay/> 
+                                  :  ordersUserId  ? <OrdersHistory/>
+                                                  : <ProdusctsListDisplay/>
         }
 
         <ToastContainer/>

@@ -68,6 +68,7 @@ export async function addOrderToUserCart ( productsInCart, user )
         _user.orders = [..._user.orders, ...newOrder];
         const docRef = doc( collectionRef, user.id );
         setDoc( docRef, _user );
+        localStorage.setItem( 'userLogged', JSON.stringify( _user ) );
         setTimeout( () =>
         {
             window.location.href = `/bill/${ _user.id }-${ _user.orders[_user.orders.length - 1].id }`;
@@ -79,6 +80,7 @@ export async function addOrderToUserCart ( productsInCart, user )
         _user.orders = [{ id: generateNewID(), order: [...productsInCart], createdAt: new Date( Date.now() ).toLocaleDateString( 'en-US', { year: 'numeric', day: 'numeric', month: 'long' } ) }];
         const docRef = doc( collectionRef, user.id );
         setDoc( docRef, _user );
+        localStorage.setItem( 'userLogged', JSON.stringify( _user ) );
         setTimeout( () =>
         {
             window.location.href = `/bill/${ _user.id }-${ _user.orders[`${ _user.orders.length - 1 }`].id }`;
