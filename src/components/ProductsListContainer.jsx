@@ -27,8 +27,8 @@ const ProdusctsListDisplay = () => {
             }, 500);
         })
     
-        loadDataPromise.then(resolve => console.log(resolve))
-                    .catch(err => console.log(err))
+        loadDataPromise.then(resolve => resolve)
+                    .catch(err => console.error(err))
     },[])
 
     useEffect(()=>{
@@ -53,7 +53,7 @@ const ProdusctsListDisplay = () => {
             }, 1000);
         })
         loadDataPromise.then(resolve => (resolve))
-                    .catch(err => console.log(err))
+                    .catch(err => console.error(err))
     },[categoryId])
 
 

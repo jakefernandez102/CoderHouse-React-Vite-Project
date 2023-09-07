@@ -14,13 +14,12 @@ const SignUpModal = () => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
 
-    const {createUser}=useAuth()
+    const {auth,createUser,currentUser}=useAuth()
 
     const navigate = useNavigate()
 
     const {
         onFinishSingUpModal,
-        onFinishFailedSingUpModal,
         handleCancelSingUpModal,
         handleSignInModal,
         loading,
@@ -39,9 +38,11 @@ const SignUpModal = () => {
             email,
             password
         })
-        setTimeout(() => {
-            navigate(`/user-settings/${id}`)
-        }, 2000);
+        if(auth.currentUser){
+            setTimeout(() => {
+                navigate(`/user-settings/${id}`)
+            }, 2000);
+        }
     }
 
 
@@ -72,7 +73,6 @@ const SignUpModal = () => {
                 remember: true,
                 }}
                 onFinish={onFinishSingUpModal}
-                onFinishFailed={onFinishFailedSingUpModal}
                 autoComplete="off"
                 onSubmitCapture={handleSubmit}
             >

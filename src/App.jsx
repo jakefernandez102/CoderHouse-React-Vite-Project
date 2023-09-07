@@ -13,7 +13,6 @@ import OrdersHistory from './components/OrdersHistory';
 function App() {
   
   const {id,orderId,userId,ordersUserId} = useParams()
-  console.log(ordersUserId)
   return (
     <>
       <Layout>

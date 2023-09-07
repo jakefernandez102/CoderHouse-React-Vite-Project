@@ -39,7 +39,6 @@ const UserSettings = () => {
     const loadImage = async (actualImage) =>{
 
         if(actualImage.name !== '../img/user-profile.png' && actualImage.name !== ''){
-            console.log(actualImage)
 
             const imageRef = ref(storage,`images/users_image/${actualImage.name}`)
             getDownloadURL(imageRef).then(response =>{

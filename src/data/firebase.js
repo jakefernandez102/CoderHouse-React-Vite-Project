@@ -54,7 +54,6 @@ export async function userExists ( id )
 
 export async function addOrderToUserCart ( productsInCart, user )
 {
-    console.log( user );
     const collectionRef = collection( db, 'users' );
     const qry = query( collectionRef, where( 'id', '==', user.id ) );
     const qrySnapshot = await getDocs( qry );
@@ -62,8 +61,6 @@ export async function addOrderToUserCart ( productsInCart, user )
 
     if ( _user?.orders !== undefined )
     {
-        console.log( 'modifica' );
-        console.log( _user.orders );
         let newOrder = [{ id: generateNewID(), order: [...productsInCart], createdAt: new Date( Date.now() ).toLocaleDateString( 'en-US', { year: 'numeric', day: 'numeric', month: 'long' } ) }];
         _user.orders = [..._user.orders, ...newOrder];
         const docRef = doc( collectionRef, user.id );
@@ -75,8 +72,6 @@ export async function addOrderToUserCart ( productsInCart, user )
         }, 3000 );
     } else
     {
-        console.log( _user.orders );
-        console.log( 'nueva' );
         _user.orders = [{ id: generateNewID(), order: [...productsInCart], createdAt: new Date( Date.now() ).toLocaleDateString( 'en-US', { year: 'numeric', day: 'numeric', month: 'long' } ) }];
         const docRef = doc( collectionRef, user.id );
         setDoc( docRef, _user );
@@ -92,12 +87,10 @@ export async function addOrderToUserCart ( productsInCart, user )
 export async function getLastOrder ( orderId )
 {
     const userId = orderId.split( '-' )[0];
-    const realOrderId = orderId.split( '-' )[1];
 
     const userDocRef = doc( db, 'users', userId );
     const snapshot = await getDoc( userDocRef );
     const user = snapshot.data();
-    console.log( user.orders );
 
     return user.orders;
 
@@ -141,7 +134,6 @@ export async function updateUser ( user )
 
 export async function uploadUserImage ( imageToUpload )
 {
-    console.log( imageToUpload );
     const imageRef = ref( storage, `images/users_image/${ imageToUpload.name }` );
     await uploadBytes( imageRef, imageToUpload );
 

@@ -17,7 +17,7 @@ const Categories = ({categories}) => {
                 buildSubcategorie(data)
 
             } catch (error) {
-                console.log(error)
+                console.error(error)
             }
         }
         getCategories();

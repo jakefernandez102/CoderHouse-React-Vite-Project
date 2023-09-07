@@ -17,7 +17,6 @@ const SignInModal = () => {
     const navigate = useNavigate()
     const {
         onFinish,
-        onFinishFailed,
         handleCancel,
         handleSignUpModal,
         loading,
@@ -62,7 +61,6 @@ const SignInModal = () => {
                     remember: true,
                     }}
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     onSubmitCapture={handleSubmit}
                 >

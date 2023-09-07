@@ -19,13 +19,10 @@ const StoreProvider = ({children}) =>{
 
 
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const onFinish = () => {
         handleOk()
     };
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+
 
     const handleOk = () => {
         setLoading(true);
@@ -57,13 +54,10 @@ const StoreProvider = ({children}) =>{
             setOpenSignInModal(!openSignInModal)
         }, 100);
     };
-    const onFinishSingUpModal = (values) => {
-        console.log('Success:', values);
+    const onFinishSingUpModal = () => {
         handleOkSingUpModal()
     };
-    const onFinishFailedSingUpModal = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+
 
     const handleOkSingUpModal = () => {
         setLoading(true);
@@ -164,7 +158,6 @@ const StoreProvider = ({children}) =>{
                 increaseDecreaseProductQuantityInCar,
                 deleteItemFromCar,
                 onFinish,
-                onFinishFailed,
                 handleOk,
                 handleCancel,
                 handleSignUpModal,
@@ -174,7 +167,6 @@ const StoreProvider = ({children}) =>{
                 handleSignInModal,
                 opeSignUpModal,
                 onFinishSingUpModal,
-                onFinishFailedSingUpModal,
                 handleOkSingUpModal,
                 handleCancelSingUpModal,
                 loadingData,
