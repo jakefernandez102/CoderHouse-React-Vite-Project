@@ -35,7 +35,7 @@
   <p align="center">
     Let me introduce you to JK'Store!
     <br />
-    <a href="https://github.com/jakefernandez102"><strong>Explore the repocitory »</strong></a>
+    <a href="https://github.com/jakefernandez102/CoderHouse-React-Vite-Project"><strong>Explore the repocitory »</strong></a>
     <br />
     <br />
     <a href="https://coderhousejakefernandezproject.netlify.app">View Demo</a>
@@ -229,7 +229,7 @@ Below you will read how you can install and set up this app.
 
 Jake Fernandez Brizuela - [Jake Fernandez Brizuela](https://www.linkedin.com/in/jake-fernandez-brizuela-73572222a/) - jake.fernandezbrizuela@outlook.com
 
-Project Link: [https://github.com/jakefernandez102/JakeFernandez-React-Project-CoderHouse](https://github.com/jakefernandez102/JakeFernandez-React-Project-CoderHouse)
+Project Link: [https://github.com/jakefernandez102/CoderHouse-React-Vite-Project](https://github.com/jakefernandez102/CoderHouse-React-Vite-Project)
 
 Portfolio: [https://portfoliojakefernandez.netlify.app](https://portfoliojakefernandez.netlify.app)
 
