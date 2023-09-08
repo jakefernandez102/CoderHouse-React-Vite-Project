@@ -272,4 +272,4 @@ Portfolio: [https://portfoliojakefernandez.netlify.app](https://portfoliojakefer
 [Bootstrap.com]: https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [Tailwind.com]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
-[Tailwind-url]: https://tailwind.com
+[Tailwind-url]: https://tailwindcss.com
