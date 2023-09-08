@@ -90,6 +90,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 
 * [![React][React.js]][React-url]
+* [![Firebase][Firebase]][Firebase-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![Tailwind][Tailwind.com]][Tailwind-url]
 
@@ -273,3 +274,5 @@ Portfolio: [https://portfoliojakefernandez.netlify.app](https://portfoliojakefer
 [Bootstrap-url]: https://getbootstrap.com
 [Tailwind.com]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
 [Tailwind-url]: https://tailwindcss.com
+[Firebase]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
+[Firebase-url]: https://console.firebase.google.com/
