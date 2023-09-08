@@ -13,7 +13,7 @@ const SignInModal = () => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
 
-    const {getUser,getUserWhenLoggedIn} = useAuth()
+    const {auth,getUser,getUserWhenLoggedIn} = useAuth()
     const navigate = useNavigate()
     const {
         onFinish,
@@ -27,9 +27,11 @@ const SignInModal = () => {
         await getUser({email,password})
         const userFB = await getUserWhenLoggedIn(email)
         localStorage.setItem('userLogged',JSON.stringify(userFB))
-        setTimeout(() => {
-            navigate(`/user-settings/${userFB.id}`)
-        }, 500);
+        if(auth.currentUser){
+            setTimeout(() => {
+                navigate(`/user-settings/${userFB.id}`)
+            }, 500);
+        }
     }
     
 
