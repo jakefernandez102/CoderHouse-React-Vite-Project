@@ -46,7 +46,7 @@ const ProductItem = () => {
                 </div>
             </div>
         </div>
-        <div className='bg-sky-100 flex flex-col justify-between items-center border-2 border-gray-400 w-full h-full  md:w-1/2 md:h-1/2 shadow-lg'>
+        <div className='bg-sky-100 flex flex-col justify-between items-center border-2 border-gray-400 w-full   md:w-1/2 md:h-2/2 shadow-lg'>
             <div className='p-10 '>
                 <h2 className='boder border-b uppercase font-bold my-5 text-sm'>{product.title}</h2>
             </div>
