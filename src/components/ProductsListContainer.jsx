@@ -37,12 +37,7 @@ const ProdusctsListDisplay = () => {
             setProducts([])
             setProducts(await getCategory(categoryId))
         }
-
-        if(category === ''){
-            return
-        } else if(category === 'clothing'){
-            setCategory("men's clothing")
-        }
+        
 
         const loadDataPromise = new Promise(resolve => {
             setLoadingData(true)

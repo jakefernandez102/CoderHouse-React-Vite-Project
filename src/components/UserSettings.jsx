@@ -62,7 +62,16 @@ const UserSettings = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-        const userUpdated = {id:userLS.id, name,lastName,phoneNumber,image:userLS.image,userName,email,password:userLS.password}
+        const userUpdated = {
+                id: userLS.id, 
+                name,
+                lastName,
+                phoneNumber,
+                image: userLS.image,
+                userName,
+                email,
+                password: userLS.password
+            }
 
         updateUser(userUpdated)
     }
